@@ -1,0 +1,24 @@
+server:
+  port: 9000
+eureka:
+  client:
+    service-url:
+      defaultZone: http://blog-server:8000/eureka/
+spring:
+  application:
+    name: cloud-blog-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          lower-case-service-id: true
+      routes:
+        - id: blog_service
+          uri: lb://cloud-blog-service
+          predicates:
+            - Path=/service/**
+          #filters:
+            #去掉请求路径中的 第一个 如 /gateway/a 变成/a
+            #- StripPrefix=1
+            # 重新设置这个路由地址
+            #- SetPath=/service

@@ -1,0 +1,58 @@
+server:
+  port: 7001
+  servlet:
+    context-path: /service
+eureka:
+  client:
+    service-url:
+      defaultZone: http://blog-server:8000/eureka/
+spring:
+  application:
+    name: cloud-blog-service
+  datasource:
+    # 数据源
+    url: jdbc:mysql://127.0.0.1:3306/v_blog?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 连接池
+    hikari:
+      maximum-pool-size: 8
+      minimum-idle: 4
+      idle-timeout: 30000
+      connection-timeout: 30000
+      max-lifetime: 45000
+      auto-commit: true
+      pool-name: ImoocCouponHikariCP
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    # password:
+    # 连接超时时间
+    timeout: 10000
+mybatis-plus:
+  mapper-locations: classpath:com/example/blog/**/dao/mapper/*.ml
+  type-aliases-package: com.imooc.example.**.model.*
+  type-enums-package: com.imooc.example.constant
+  global-config:
+    db-config:
+      id-type: auto
+      field-strategy: not_empty
+      #驼峰下划线转换
+      column-underline: true
+      db-type: mysql
+    refresh: false
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+info:
+  app:
+    name: blog-service
+    groupId: com.example.blog
+    artifactId: blog-service
+    version: 1.0-SNAPSHOT
+logging:
+  level:
+    com.example.blog: debug

@@ -1,0 +1,19 @@
+server:
+  port: 8000
+spring:
+  application:
+    name: cloud-blog-eureka-server
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    # 标识是否从eureka server 中 获取 注册信息 默认true
+    # 如果是单节点eureka server 不需要同步其他节点的数据，设置为false
+    fetch-registry: false
+    # 是否将自己注册到eureka server上
+    # 由于当前应用是单节点eureka server 需要设置为false
+    register-with-eureka: false
+    service-url:
+      # 设置eureka server 所在的地址
+      # 查询服务 和 注册服务 都需要依赖 这个地址
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
